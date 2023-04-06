@@ -14,8 +14,12 @@ import java.util.Optional;
 @Service
 public class PostImplementation implements PostService {
 
-    @Autowired
-    private PostRepository postRepository;
+    private final PostRepository postRepository;
+
+    public PostImplementation(PostRepository postRepository) {
+        this.postRepository = postRepository;
+    }
+
     @Transactional
     public List<Post> findAll() {
         return this.postRepository.findAll();
@@ -46,8 +50,8 @@ public class PostImplementation implements PostService {
             post.get().setContent(data.getContent());
             post.get().setLinks(data.getLinks());
             post.get().setStatus(data.getStatus());
-            post.get().setUser(data.getUsuario());
-            post.get().setCategories(data.getCategories());
+            post.get().setUser(data.getUser());
+            post.get().setCategory(data.getCategory());
             this.postRepository.save(post.get());
         }
 

@@ -1,11 +1,13 @@
 package edu.utvt.blog.entities;
 
 import jakarta.persistence.*;
+import lombok.Data;
 
 import java.io.Serial;
 import java.io.Serializable;
 
 @Entity
+@Data
 @Table(name = "post")
 public class Post implements Serializable {
     @Serial
@@ -33,16 +35,16 @@ public class Post implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "category_id", referencedColumnName = "id")
-    private Categories categories;
+    private Categories category;
 
-    public Post(String title, String content, String links, Boolean status, User user, Categories categories){
+    public Post(String title, String content, String links, Boolean status, User user_id, Categories category_id){
         super();
         this.title = title;
         this.content = content;
         this.links = links;
         this.status = status;
-        this.categories = categories;
-        this.user = user;
+        this.user= user_id;
+        this.category = category_id;
     }
 
     public Post() {
@@ -90,19 +92,19 @@ public class Post implements Serializable {
         return status;
     }
 
-    public void setCategories(Categories categories) {
-        this.categories = categories;
+    public void setCategory(Categories categories) {
+        this.category = categories;
     }
 
-    public Categories getCategories() {
-        return categories;
+    public Categories getCategory() {
+        return category;
     }
 
     public void setUser(User user) {
         this.user = user;
     }
 
-    public User getUsuario() {
+    public User getUser() {
         return user;
     }
 
@@ -115,7 +117,7 @@ public class Post implements Serializable {
                 ", links='" + links + '\'' +
                 ", status=" + status +
                 ", user=" + user +
-                ", category=" + categories +
+                ", category=" + category +
                 '}';
     }
 }
